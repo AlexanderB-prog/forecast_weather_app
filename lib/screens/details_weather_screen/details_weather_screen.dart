@@ -11,6 +11,8 @@ class DetailsWeatherScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ListElement minTemperature = cityForecastWeather.list.first;   // при необходимости, можно выделить минимальный элемент для дальнейшей обработки
+    // cityForecastWeather.list.removeAt(0);
     const TextStyle textStyle = TextStyle(
       fontSize: 15,
       fontWeight: FontWeight.w600,
@@ -54,7 +56,7 @@ class DetailsWeatherScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListForecastWeather(cityForecastWeather: cityForecastWeather),
+            child: ListForecastWeather(cityForecastWeather: cityForecastWeather),   //выделил в отдельный виджет генерацию списка погоды
           ),
         ],
       ),
@@ -78,8 +80,9 @@ class ListForecastWeather extends StatelessWidget {
             child: Card(
               child: Row(
                 children: [
+                  const SizedBox(width: 10),
                   Expanded(
-                    child: Text(DateFormat('H:mm, d MMM', "ru")
+                    child: Text(DateFormat('H:mm, d MMM', "ru")       //задание формата отображения даты и времени
                         .format(DateTime.fromMillisecondsSinceEpoch(
                             cityForecastWeather.list[index].dt * 1000))
                         .toString()),
@@ -87,14 +90,14 @@ class ListForecastWeather extends StatelessWidget {
                   const SizedBox(width: 30),
                   Expanded(
                     child:
-                        Text('${(cityForecastWeather.list[index].main.temp - 273.15).round()}ºC'),
+                        Text('${(cityForecastWeather.list[index].main.temp - 273.15).round()}ºC'),   // перевод темературы к градусам цельсия
                   ),
                   Expanded(
                     child: Text('${cityForecastWeather.list[index].wind.speed} м/с'),
                   ),
                   const SizedBox(width: 10),
                   Text('${cityForecastWeather.list[index].main.humidity}%'),
-                  const SizedBox(width: 35)
+                  const SizedBox(width: 10)
                 ],
               ),
             ),

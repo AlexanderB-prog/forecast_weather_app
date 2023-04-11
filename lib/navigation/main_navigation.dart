@@ -5,12 +5,14 @@ import 'package:forecast_weather_app/screens/details_weather_screen/details_weat
 import 'package:forecast_weather_app/screens/home_screen/home_screen_view.dart';
 import 'package:forecast_weather_app/screens/weather/weather_view.dart';
 
+//абстрактный клас со списком путей
 abstract class Screens {
   static const main = '/';
   static const weatherScreen = '/weather_screen';
   static const detailsScreen = '/weather_page/details_screen';
 }
 
+//список routes и метод для генерации routes
 class MainNavigation {
   Map<String, WidgetBuilder> get routes => {
         Screens.main: (context) => const HomeScreenPage(),

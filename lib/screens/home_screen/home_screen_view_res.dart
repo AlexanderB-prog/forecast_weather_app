@@ -1,3 +1,5 @@
+//вынес все текстовые константы в отдельный файл(для каждого экрана свой файл)
+
 class HomeScreenViewRes {
   static const String screenName = 'Прогноз погоды';
   static const String hintText = 'Город';

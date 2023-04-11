@@ -7,16 +7,12 @@ import 'home_screen_bloc.dart';
 import 'home_screen_event.dart';
 import 'home_screen_state.dart';
 
-const snackBar = SnackBar(
-  content: Text('Ошибка получения данных!'),
-);
-
 class HomeScreenPage extends StatelessWidget {
   const HomeScreenPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider(    //внедрение блока HomeScreenBloc
       create: (context) => HomeScreenBloc(),
       child: const MyWidget(),
     );
@@ -29,19 +25,20 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<HomeScreenBloc, HomeScreenState>(
+      body: BlocListener<HomeScreenBloc, HomeScreenState>( //оборачиваю в BlocListener, что бы совершать переход на следующий экран или отображать ошибку при сетевом запросе
         listener: (context, state) {
           if (state is NavigationHomeScreenState) {
             Navigator.of(context)
-                .pushReplacementNamed(Screens.weatherScreen, arguments: state.cityWeather);
+                .pushReplacementNamed(Screens.weatherScreen, arguments: state.cityWeather); //навигация на экран с погодой
           }
-          if (state is ErrorHomeScreenState) {
+          if (state is ErrorHomeScreenState) {  // вызывается SnackBar  с ошибкой
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                duration: const Duration(seconds: 2),
                 backgroundColor: Colors.red,
-                behavior: SnackBarBehavior.floating,
+                behavior: SnackBarBehavior.floating, // что бы SnackBar не появлялся снизу
                 margin:
-                    EdgeInsets.symmetric(vertical: (MediaQuery.of(context).size.height / 2) - 100),
+                    EdgeInsets.symmetric(vertical: (MediaQuery.of(context).size.height / 2) - 100),// для отображения по центру экрана
                 content: SizedBox(
                   height: 100,
                   child: Column(
@@ -75,7 +72,7 @@ class MyWidget extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 50),
-              child: TextFieldCityWidget(),
+              child: _TextFieldCityWidget(),
             ),
             ElevatedButton(
               style: ButtonStyle(
@@ -85,7 +82,7 @@ class MyWidget extends StatelessWidget {
                 backgroundColor:
                     const MaterialStatePropertyAll<Color>(Color.fromRGBO(0, 92, 138, 1)),
               ),
-              onPressed: () => context.read<HomeScreenBloc>().add(NavigationHomeScreenEvent()),
+              onPressed: () => context.read<HomeScreenBloc>().add(NavigationHomeScreenEvent()), // добавление в блок события NavigationHomeScreenEvent по завершению ввода для перехода на следуюищй экран
               child: const Text(
                 HomeScreenViewRes.nameButton,
               ),
@@ -97,14 +94,14 @@ class MyWidget extends StatelessWidget {
   }
 }
 
-class TextFieldCityWidget extends StatelessWidget {
-  const TextFieldCityWidget({super.key});
+class _TextFieldCityWidget extends StatelessWidget {
+  const _TextFieldCityWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onSubmitted: (text) => context.read<HomeScreenBloc>().add(NavigationHomeScreenEvent()),
-      onChanged: (text) => context.read<HomeScreenBloc>().add(OnChangedHomeScreenEvent(text)),
+      onSubmitted: (text) => context.read<HomeScreenBloc>().add(NavigationHomeScreenEvent()),  // добавление в блок события NavigationHomeScreenEvent по завершению ввода для перехода на следуюищй экран
+      onChanged: (text) => context.read<HomeScreenBloc>().add(OnChangedHomeScreenEvent(text)), // добавления в блок события OnChangedHomeScreenEvent для сохранения введенных данных
       maxLines: 1,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(0),

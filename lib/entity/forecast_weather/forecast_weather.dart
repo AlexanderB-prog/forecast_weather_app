@@ -3,6 +3,8 @@ import 'package:forecast_weather_app/entity/weather/weather.dart';
 
 part 'forecast_weather.g.dart';
 
+
+//список значений с прогнозом погоды по интервалам в городе
 @JsonSerializable(explicitToJson: true)
 class CityForecastWeather {
   final String cod;
@@ -19,6 +21,7 @@ class CityForecastWeather {
   Map<String, dynamic> toJson() => _$CityForecastWeatherToJson(this);
 }
 
+//прогноз погоды в определенное время
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class ListElement {
   final int dt;

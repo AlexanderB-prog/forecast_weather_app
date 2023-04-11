@@ -15,7 +15,7 @@ class WeatherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider(  //внедение блока WeatherBloc
       create: (BuildContext context) => WeatherBloc(),
       child: Builder(builder: (context) => MyListenerWidget(cityWeather: cityWeather)),
     );
@@ -29,7 +29,7 @@ class MyListenerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<WeatherBloc, WeatherState>(
+    return BlocListener<WeatherBloc, WeatherState>(  //оборачиваю Scaffold в BlocListener для навигации (к новому поиску или прогнозу на 3 дня)
         listener: (context, state) {
           if (state is CityWeatherState) {
             Navigator.of(context)
@@ -50,7 +50,7 @@ Widget _buildPage(BuildContext context, CityWeather cityWeather) {
     appBar: AppBar(
       actions: [
         TextButton(
-          onPressed: () => bloc.add(PopEvent()),
+          onPressed: () => bloc.add(PopEvent()),  // добавляю событие в блок для нового поиска погоды по названию города
           child: Row(
             children: const [
               Icon(
@@ -66,7 +66,7 @@ Widget _buildPage(BuildContext context, CityWeather cityWeather) {
         ),
         const Expanded(child: SizedBox(width: 10)),
         TextButton(
-          onPressed: () => bloc.add(DetailsEvent(cityWeather.id)),
+          onPressed: () => bloc.add(DetailsEvent(cityWeather.id)),  //отправка в блок события для получения прогноза погоды на 3 дня и перехода на следующую страницу
           child: Row(
             children: const [
               Icon(
@@ -106,7 +106,7 @@ Widget _buildPage(BuildContext context, CityWeather cityWeather) {
                 ),
                 const SizedBox(width: 30),
                 Text(
-                  '${(cityWeather.main.temp - 273.15).round()}ºC',
+                  '${(cityWeather.main.temp - 273.15).round()}ºC',  //приведение температры к градусам цельсия
                   style: textStyle,
                 ),
               ],

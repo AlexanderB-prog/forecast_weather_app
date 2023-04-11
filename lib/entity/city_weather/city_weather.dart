@@ -3,6 +3,7 @@ import 'package:forecast_weather_app/entity/weather/weather.dart';
 
 part 'city_weather.g.dart';
 
+//описанеи города и погоды
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class CityWeather {
   @JsonKey(name: 'coord')
@@ -30,8 +31,6 @@ class CityWeather {
 
 @JsonSerializable()
 class Sys {
-// final int type;
-// final int id;
   final String country;
   final int sunrise;
   final int sunset;

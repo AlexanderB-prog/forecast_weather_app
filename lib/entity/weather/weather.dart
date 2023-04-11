@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'weather.g.dart';
 
+
+//классы с погодой
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Main {
   final double temp;

@@ -26,7 +26,7 @@ Map<String, dynamic> _$CityCoordinateToJson(CityCoordinate instance) =>
 
 LocalNames _$LocalNamesFromJson(Map<String, dynamic> json) => LocalNames(
       json['en'] as String?,
-      json['ru'] as String,
+      json['ru'] as String?,
     );
 
 Map<String, dynamic> _$LocalNamesToJson(LocalNames instance) =>
