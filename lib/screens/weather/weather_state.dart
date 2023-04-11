@@ -10,5 +10,4 @@ class CityWeatherState extends WeatherState {
   CityWeatherState(this.cityForecastWeather);
 }
 
-
 class PopWeatherState extends WeatherState {}

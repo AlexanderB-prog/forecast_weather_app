@@ -32,11 +32,10 @@ class ListElement {
   @JsonKey(name: 'dt_txt')
   final String dtTxt;
 
-  ListElement(this.dt, this.main, this.weather, this.clouds, this.wind,
-      this.visibility, this.pop, this.sys, this.dtTxt);
+  ListElement(this.dt, this.main, this.weather, this.clouds, this.wind, this.visibility, this.pop,
+      this.sys, this.dtTxt);
 
-  factory ListElement.fromJson(Map<String, dynamic> json) =>
-      _$ListElementFromJson(json);
+  factory ListElement.fromJson(Map<String, dynamic> json) => _$ListElementFromJson(json);
 
   Map<String, dynamic> toJson() => _$ListElementToJson(this);
 }
@@ -64,8 +63,8 @@ class City {
   final int sunrise;
   final int sunset;
 
-  City(this.id, this.name, this.coordinates, this.country, this.population,
-      this.timezone, this.sunrise, this.sunset);
+  City(this.id, this.name, this.coordinates, this.country, this.population, this.timezone,
+      this.sunrise, this.sunset);
 
   factory City.fromJson(Map<String, dynamic> json) => _$CityFromJson(json);
 

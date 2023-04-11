@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forecast_weather_app/entity/city_weather/city_weather.dart';
 import 'package:forecast_weather_app/navigation/main_navigation.dart';
+import 'package:forecast_weather_app/screens/weather/weather_view_res.dart';
 
 import 'weather_bloc.dart';
 import 'weather_event.dart';
@@ -16,8 +17,7 @@ class WeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => WeatherBloc(),
-      child: Builder(
-          builder: (context) => MyListenerWidget(cityWeather: cityWeather)),
+      child: Builder(builder: (context) => MyListenerWidget(cityWeather: cityWeather)),
     );
   }
 }
@@ -25,16 +25,15 @@ class WeatherPage extends StatelessWidget {
 class MyListenerWidget extends StatelessWidget {
   final CityWeather cityWeather;
 
-  const MyListenerWidget({Key? key, required this.cityWeather})
-      : super(key: key);
+  const MyListenerWidget({Key? key, required this.cityWeather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<WeatherBloc, WeatherState>(
         listener: (context, state) {
           if (state is CityWeatherState) {
-            Navigator.of(context).pushNamed(Screens.detailsScreen,
-                arguments: state.cityForecastWeather);
+            Navigator.of(context)
+                .pushNamed(Screens.detailsScreen, arguments: state.cityForecastWeather);
           }
           if (state is PopWeatherState) {
             Navigator.of(context).pushReplacementNamed(Screens.main);
@@ -46,16 +45,12 @@ class MyListenerWidget extends StatelessWidget {
 
 Widget _buildPage(BuildContext context, CityWeather cityWeather) {
   final bloc = BlocProvider.of<WeatherBloc>(context);
-  const TextStyle textStyle =
-      TextStyle(fontSize: 15, fontWeight: FontWeight.w600);
+  const TextStyle textStyle = TextStyle(fontSize: 15, fontWeight: FontWeight.w600);
   return Scaffold(
     appBar: AppBar(
-      backgroundColor: const Color.fromRGBO(105, 205, 255, 1),
       actions: [
         TextButton(
-          onPressed: () {
-            bloc.add(PopEvent());
-          },
+          onPressed: () => bloc.add(PopEvent()),
           child: Row(
             children: const [
               Icon(
@@ -63,20 +58,15 @@ Widget _buildPage(BuildContext context, CityWeather cityWeather) {
                 color: Colors.white,
               ),
               Text(
-                'Новый поиск',
+                WeatherViewRes.nameNewSearchButton,
                 style: TextStyle(color: Colors.white),
               ),
             ],
           ),
         ),
-        const Expanded(
-            child: SizedBox(
-          width: 10,
-        )),
+        const Expanded(child: SizedBox(width: 10)),
         TextButton(
-          onPressed: () {
-            bloc.add(DetailsEvent(cityWeather.id));
-          },
+          onPressed: () => bloc.add(DetailsEvent(cityWeather.id)),
           child: Row(
             children: const [
               Icon(
@@ -84,7 +74,7 @@ Widget _buildPage(BuildContext context, CityWeather cityWeather) {
                 color: Colors.white,
               ),
               Text(
-                'прогноз 3 дня',
+                WeatherViewRes.nameThreeDayForecastButton,
                 style: TextStyle(color: Colors.white),
               ),
             ],
@@ -92,76 +82,75 @@ Widget _buildPage(BuildContext context, CityWeather cityWeather) {
         ),
       ],
     ),
-    body: Container(
-      color: const Color.fromRGBO(105, 205, 255, 1),
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            cityWeather.name,
-            style: const TextStyle(fontSize: 35, fontWeight: FontWeight.w800),
+    body: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(
+          cityWeather.name,
+          style: const TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.w800,
           ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  const SizedBox(width: 50),
-                  const SizedBox(
-                      width: 120,
-                      child: Text(
-                        'Температура',
-                        style: textStyle,
-                      )),
-                  const SizedBox(width: 30),
-                  Text(
-                    '${(cityWeather.main.temp - 273.15).round()}ºC',
+        ),
+        Column(
+          children: [
+            Row(
+              children: [
+                const SizedBox(width: 100),
+                const SizedBox(
+                  width: 120,
+                  child: Text(
+                    WeatherViewRes.temperature,
                     style: textStyle,
                   ),
-                ],
-              ),
-
-              const SizedBox(height: 15),
-              Row(
-                children: [
-                  const SizedBox(width: 50),
-                  const SizedBox(
-                      width: 120,
-                      child: Text(
-                        'Скорость ветра',
-                        style: textStyle,
-                      )),
-                  const SizedBox(width: 30),
-                  Text(
-                    '${cityWeather.wind.speed.toString()} м/с',
+                ),
+                const SizedBox(width: 30),
+                Text(
+                  '${(cityWeather.main.temp - 273.15).round()}ºC',
+                  style: textStyle,
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                const SizedBox(width: 100),
+                const SizedBox(
+                  width: 120,
+                  child: Text(
+                    WeatherViewRes.humidity,
                     style: textStyle,
                   ),
-                ],
-              ),
-              const SizedBox(height: 15),
-              Row(
-                children: [
-                  const SizedBox(width: 50),
-                  const SizedBox(
-                      width: 120,
-                      child: Text(
-                        'Влажность',
-                        style: textStyle,
-                      )),
-                  const SizedBox(width: 30),
-                  Text(
-                    '${cityWeather.main.humidity}%',
+                ),
+                const SizedBox(width: 30),
+                Text(
+                  '${cityWeather.main.humidity}%',
+                  style: textStyle,
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                const SizedBox(width: 100),
+                const SizedBox(
+                  width: 120,
+                  child: Text(
+                    WeatherViewRes.windSpeed,
                     style: textStyle,
                   ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 100,
-          )
-        ],
-      ),
+                ),
+                const SizedBox(width: 30),
+                Text(
+                  '${cityWeather.wind.speed.toString()} м/с',
+                  style: textStyle,
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 100)
+      ],
     ),
   );
 }

@@ -12,8 +12,7 @@ class ApiClient {
   static const _hostCityCoordinate = 'http://api.openweathermap.org/geo/1.0';
   static const _apiKey = '17d71400c741c58d1c57fb10416e6215';
 
-  Future<List<CityCoordinate>> getCityCoordinate(
-      String cityName, int limit) async {
+  Future<List<CityCoordinate>> getCityCoordinate(String cityName, int limit) async {
     String path = '/direct?q=$cityName&limit=$limit&lang=ru&appid=$_apiKey';
     final url = Uri.parse('$_hostCityCoordinate$path');
     final request = await _client.getUrl(url);
@@ -32,7 +31,8 @@ class ApiClient {
   }
 
   Future<CityForecastWeather> getCityForecastWeather(int id) async {
-    String path = '/forecast?id=$id&cnt=${(8-(DateTime.now().hour/3).floor())+24}&lang=ru&appid=$_apiKey';
+    String path =
+        '/forecast?id=$id&cnt=${(8 - (DateTime.now().hour / 3).floor()) + 24}&lang=ru&appid=$_apiKey';
     final url = Uri.parse('$_hostWeather$path');
     final request = await _client.getUrl(url);
     final response = await request.close();

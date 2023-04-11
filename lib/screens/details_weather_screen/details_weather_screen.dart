@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forecast_weather_app/screens/details_weather_screen/details_weather_screen_res.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:forecast_weather_app/entity/forecast_weather/forecast_weather.dart';
@@ -6,8 +7,7 @@ import 'package:forecast_weather_app/entity/forecast_weather/forecast_weather.da
 class DetailsWeatherScreen extends StatelessWidget {
   final CityForecastWeather cityForecastWeather;
 
-  const DetailsWeatherScreen({Key? key, required this.cityForecastWeather})
-      : super(key: key);
+  const DetailsWeatherScreen({Key? key, required this.cityForecastWeather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,6 @@ class DetailsWeatherScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(cityForecastWeather.city.name),
-        backgroundColor: const Color.fromRGBO(105, 205, 255, 1),
       ),
       body: Column(
         children: [
@@ -28,11 +27,11 @@ class DetailsWeatherScreen extends StatelessWidget {
             child: Row(
               children: const [
                 SizedBox(width: 20),
-                Text('Время', style: textStyle),
+                Text(DetailsWeatherScreenViewRes.time, style: textStyle),
                 SizedBox(width: 50),
                 Expanded(
                   child: Text(
-                    'Температура',
+                    DetailsWeatherScreenViewRes.temperature,
                     style: textStyle,
                   ),
                 ),
@@ -40,14 +39,14 @@ class DetailsWeatherScreen extends StatelessWidget {
                 SizedBox(
                   width: 75,
                   child: Text(
-                    'Скорость ветра',
+                    DetailsWeatherScreenViewRes.windSpeed,
                     style: textStyle,
                   ),
                 ),
                 SizedBox(width: 10),
                 FittedBox(
                   child: Text(
-                    'Влажность',
+                    DetailsWeatherScreenViewRes.humidity,
                     style: textStyle,
                   ),
                 ),
@@ -55,11 +54,7 @@ class DetailsWeatherScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Container(
-                width: double.infinity,
-                color: const Color.fromRGBO(105, 205, 255, 1),
-                child: ListForecastWeather(
-                    cityForecastWeather: cityForecastWeather)),
+            child: ListForecastWeather(cityForecastWeather: cityForecastWeather),
           ),
         ],
       ),
@@ -70,8 +65,7 @@ class DetailsWeatherScreen extends StatelessWidget {
 class ListForecastWeather extends StatelessWidget {
   final CityForecastWeather cityForecastWeather;
 
-  const ListForecastWeather({Key? key, required this.cityForecastWeather})
-      : super(key: key);
+  const ListForecastWeather({Key? key, required this.cityForecastWeather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,21 +86,15 @@ class ListForecastWeather extends StatelessWidget {
                   ),
                   const SizedBox(width: 30),
                   Expanded(
-                    child: Text(
-                        '${(cityForecastWeather.list[index].main.temp - 273.15).round()}ºC'),
+                    child:
+                        Text('${(cityForecastWeather.list[index].main.temp - 273.15).round()}ºC'),
                   ),
                   Expanded(
-                    child: Text(
-                        '${cityForecastWeather.list[index].wind.speed} м/с'),
+                    child: Text('${cityForecastWeather.list[index].wind.speed} м/с'),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                      '${cityForecastWeather.list[index].main.humidity}%'),
-                  const SizedBox(
-                    width: 35,
-                  )
+                  const SizedBox(width: 10),
+                  Text('${cityForecastWeather.list[index].main.humidity}%'),
+                  const SizedBox(width: 35)
                 ],
               ),
             ),

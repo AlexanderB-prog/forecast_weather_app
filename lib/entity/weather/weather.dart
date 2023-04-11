@@ -23,8 +23,8 @@ class Main {
 
   factory Main.fromJson(Map<String, dynamic> json) => _$MainFromJson(json);
 
-  Main(this.temp, this.feelsLike, this.tempMin, this.tempMax, this.pressure,
-      this.seaLevel, this.grandLevel, this.humidity, this.tempKf);
+  Main(this.temp, this.feelsLike, this.tempMin, this.tempMax, this.pressure, this.seaLevel,
+      this.grandLevel, this.humidity, this.tempKf);
 
   Map<String, dynamic> toJson() => _$MainToJson(this);
 }
@@ -38,8 +38,7 @@ class WeatherElement {
 
   WeatherElement(this.id, this.main, this.description, this.icon);
 
-  factory WeatherElement.fromJson(Map<String, dynamic> json) =>
-      _$WeatherElementFromJson(json);
+  factory WeatherElement.fromJson(Map<String, dynamic> json) => _$WeatherElementFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherElementToJson(this);
 }
@@ -74,8 +73,7 @@ class Coordinates {
 
   Coordinates(this.lat, this.lon);
 
-  factory Coordinates.fromJson(Map<String, dynamic> json) =>
-      _$CoordinatesFromJson(json);
+  factory Coordinates.fromJson(Map<String, dynamic> json) => _$CoordinatesFromJson(json);
 
   Map<String, dynamic> toJson() => _$CoordinatesToJson(this);
 }

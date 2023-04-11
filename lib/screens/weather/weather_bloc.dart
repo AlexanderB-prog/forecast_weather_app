@@ -12,8 +12,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   }
 
   void _details(DetailsEvent event, Emitter<WeatherState> emit) async {
-    CityForecastWeather cityForecastWeather =
-        await ApiClient().getCityForecastWeather(event.id);
+    CityForecastWeather cityForecastWeather = await ApiClient().getCityForecastWeather(event.id);
     double minTemp = cityForecastWeather.list.first.main.temp;
     ListElement minElement = cityForecastWeather.list.first;
     for (var e in cityForecastWeather.list) {
@@ -26,7 +25,5 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     emit(CityWeatherState(cityForecastWeather));
   }
 
-  void _pop(PopEvent event, Emitter<WeatherState> emit) async {
-    emit(PopWeatherState());
-  }
+  void _pop(PopEvent event, Emitter<WeatherState> emit) async => emit(PopWeatherState());
 }
