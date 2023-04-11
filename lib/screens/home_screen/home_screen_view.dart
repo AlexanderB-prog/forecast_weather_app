@@ -7,6 +7,10 @@ import 'home_screen_bloc.dart';
 import 'home_screen_event.dart';
 import 'home_screen_state.dart';
 
+const snackBar = SnackBar(
+  content: Text('Ошибка получения данных!'),
+);
+
 class HomeScreenPage extends StatelessWidget {
   const HomeScreenPage({super.key});
 
@@ -32,17 +36,26 @@ class MyWidget extends StatelessWidget {
                 .pushReplacementNamed(Screens.weatherScreen, arguments: state.cityWeather);
           }
           if (state is ErrorHomeScreenState) {
-            Scaffold.of(context).showBottomSheet(
-              (context) => GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                child: Container(
-                  alignment: Alignment.center,
-                  width: double.infinity,
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                behavior: SnackBarBehavior.floating,
+                margin:
+                    EdgeInsets.symmetric(vertical: (MediaQuery.of(context).size.height / 2) - 100),
+                content: SizedBox(
                   height: 100,
-                  color: Colors.red,
-                  child: Text(
-                    state.text,
-                    style: const TextStyle(color: Colors.white),
+                  child: Column(
+                    children: [
+                      const Text(
+                        HomeScreenViewRes.errorTitle,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        state.text,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ),
